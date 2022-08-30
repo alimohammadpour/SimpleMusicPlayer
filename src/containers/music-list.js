@@ -5,21 +5,19 @@ class MusicList extends Component {
   renderListTrackDetail(track) {
     return (
       <div className="row g-0">
-        <div className="col-md-4">
+        <div className="col-md-2">
           <img
-            src={track.image[2]["#text"]}
-            className="img-fluid rounded-start"
+            src={track.image[1]["#text"]}
+            className="img-fluid rounded-start mt-2"
             alt=""
           />
         </div>
-        <div className="col-md-8">
+        <div className="col-md-10">
           <div className="card-body">
             <h6 className="card-title">{track.name}</h6>
             <div className="card-text d-flex justify-content-between">
-              <p>By: {track.artist}</p>
-              <p>
-                <small>Listeners: {track.listeners}</small>
-              </p>
+              <span>By: {track.artist}</span>
+              <span>{track.listeners} plays</span>
             </div>
           </div>
         </div>
