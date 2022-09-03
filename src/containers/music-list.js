@@ -1,7 +1,10 @@
 import { Component } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { selectedTrack } from "../actions/index";
 
 class MusicList extends Component {
+
   renderListTrackDetail(track) {
     return (
       <div className="row g-0">
@@ -28,7 +31,11 @@ class MusicList extends Component {
   renderTracksList() {
     return this.props.tracks.map((track, index) => {
       return (
-        <li key={index} className="list-group-item list-group-item-action">
+        <li 
+          key={index} 
+          className="list-group-item list-group-item-action" 
+          onClick={ () => this.props.selectedTrack(track) }
+          >
           {this.renderListTrackDetail(track)}
         </li>
       );
@@ -36,7 +43,7 @@ class MusicList extends Component {
   }
 
   render() {
-    if (!this.props.tracks) {
+    if (! this.props.tracks.length) {
       return (
         <div
           className="spinner-grow text-warning"
@@ -58,10 +65,12 @@ class MusicList extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    tracks: state.tracks
-  };
+function mapStateToProps({tracks}) {
+  return { tracks };
 }
 
-export default connect(mapStateToProps)(MusicList);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ selectedTrack }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MusicList);
